@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My new Project</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="container">  
+<div class="menu">  
+    <ul>
+        <li><a href="#" >Home</a></li>
+        <li><a href="#" id="current">Fruit</a>
+            <ul>
+                <li><a href="#">Apples</a></li>
+                <li><a href="#">Oranges</a></li>
+                <li><a href="#">Bananas</a></li>
+                <li><a href="#">Pears</a></li>
+            </ul>
+        </li>
+        <li><a href="/about.html">About</a>
+            <ul>
+                <li><a href="#">Company Info</a></li>
+                <li><a href="#">Locations</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </li>
+        <li><a href="/contact/contact.php">Contact Us</a></li>
+    </ul>
+</div><!--closing div class for "menu"-->  
+</div>
+<style type="text/css">
+	#container    {
+    width:1024px;
+    background: #CCC;
+    height:400px;
+    margin:auto;
+}
+.menu{
+    width:960px;
+    border:none;
+    border:0px;
+    margin:auto;
+    padding:0px;
+    font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    }
+</style>
+<div id="div1" style="color: black">
+	<form class="form1" id="form1_id">
+		<label for="username">username</label>
+		<input type="textbox" id="username" name="form1_uname" placeholder="user name"><br>
+		<input type="password" name="form1_pword" placeholder="password"><br>
+		<input type="submit" name="submit" value="Login">
+	</form> 
+</div>
+</body>
+</html>
