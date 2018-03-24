@@ -1,21 +1,32 @@
  <?php
 	session_start();
 	include 'connect.php';
-	$id = 1;
 	if ($_SESSION['Admin'] == 'Admin') {
-		if(isset($_POST['submit'])){
-			$status = $_POST['status'];
-			$role = $_POST['role'];
+		if(isset($_POST['submit1'])||isset($_POST['submit2'])||isset($_POST['submit3'])||isset($_POST['submit4'])||isset($_POST['submit5'])){
 
-			$username = $_POST['username'];
+
+			if(isset($_POST['submit1'])){
+				$a = '1';
+			}elseif (isset($_POST['submit2'])) {
+				$a = '2';
+			}elseif (isset($_POST['submit3'])) {
+				$a = '3';
+			}
+
+			$status = $_POST['status'.$a];
+			$role = $_POST['role'.$a];
+			$username = $_POST['username'.$a];
 
 
 			$role = stripcslashes($role);
 			$status = stripcslashes($status);
+			$username = stripcslashes($username);
 
 
 			$status = mysqli_real_escape_string($con,$status);
 			$role = mysqli_real_escape_string($con,$role);
+			$username = mysqli_real_escape_string($con,$username);
+
 
 			switch ($role) {
 				case 'Subadmin':
@@ -33,17 +44,11 @@
 			}
 
 
-			/*if ($role == "Subadmin") {
-				$role = 2;
-			}elseif ($role == "Retailer") {
-				$role = 3;
-			}elseif ($role == "Customer") {
-				$role = 4;
-			}*/
-     
-			if ($status == "Suspend") {
+			if ($status == "Online") {
 				$status = 1;
-			}else $status = 2;
+			}elseif ($status == "Suspend") {
+				$status = 2;
+			}else $status = 3;
 
 			$query = mysqli_query($con,"update users set role=$role, status=$status where username='$username'");
 		}
@@ -95,152 +100,98 @@
 					      <th>role</th>
 					      <th></th>
 				        </tr>
-				        <form name="select_form" action="admin_dashboard.php" method="post">		        		
+				        <form name="select_form1" action="admin_dashboard.php" method="post">		        		
 					    <tr>
 					      <?php
 					      		$query = mysqli_query($con, "select * from users where id=".$id++.""); 
 								$fetch = mysqli_fetch_array($query); ?>
 					      <td><?php echo $fetch['name']; ?></td>
-					      <td><?php echo $fetch['username']; ?></td>
+					      <td><input type="text" name="username1" value="<?php echo $fetch['username']; ?>"></td>
 					      <td><?php echo $fetch['email']; ?></td>
 					      <td><?php echo ( $fetch['gender']== 1 )?'Male':'Female';  ?></td>
 					      <td><?php echo $fetch['DOB']; ?></td>
 					      <td><?php echo $fetch['mobile']; ?></td>
 					      <td class="align">
-					      	<select>
-					      		<option>Suspend</option>
-					      		<option>Delete</option>
+					      	<select name="status1">
+					      		<option <?php echo ($fetch['status']==1)?'selected':''; ?>>Online</option>
+					      		<option <?php echo ($fetch['status']==2)?'selected':''; ?>>Suspend</option>
+					      		<option <?php echo ($fetch['status']==3)?'selected':''; ?>>Delete</option>
 					      	</select>
 					      </td>
 					      <td class="align">
-					      	<select name="role">
-					      		<option>Subadmin</option>
-					      		<option>Consumer</option>
-					      		<option>Retailer</option>
-					      		<option>Customer</option>
+					      	<select name="role1">
+					      		<option <?php echo ($fetch['role']==1)?'selected':''; ?>>Admin</option>
+					      		<option <?php echo ($fetch['role']==2)?'selected':''; ?>>Subadmin</option>
+					      		<option <?php echo ($fetch['role']==3)?'selected':''; ?>>Retailer</option>
+					      		<option <?php echo ($fetch['role']==4)?'selected':''; ?>>Customer</option>
 					      	</select>
 					      </td>
 					      <td><div class="modify_button">
-		  			<input type="submit" name="submit" class="button" value="Modify"></input>
+		  			<input type="submit" name="submit1" class="button" value="Modify"></input>
 		  		</div></form></td>
 				        </tr>
-				        <form name="select_form" action="admin_dashboard.php" method="post">
+				        <form name="select_form2" action="admin_dashboard.php" method="post">
 				        <tr>
 				        	<?php
 					      		$query = mysqli_query($con, "select * from users where id=".$id++.""); 
 								$fetch = mysqli_fetch_array($query); ?>
 					      <td><?php echo $fetch['name']; ?></td>
-					      <td><input type="text" name="username" value="<?php echo $fetch['username']; ?>"></td>
+					      <td><input type="text" name="username2" value="<?php echo $fetch['username']; ?>"></td>
 					      <td><?php echo $fetch['email']; ?></td>
 					      <td><?php echo ( $fetch['gender']== 1 )?'Male':'Female';  ?></td>
 					      <td><?php echo $fetch['DOB']; ?></td>
 					      <td><?php echo $fetch['mobile']; ?></td>
 					      <td class="align">
-					      	<select name="status">
-					      		<option>Suspend</option>
-					      		<option>Delete</option>
+					      	<select name="status2">
+					      		<option <?php echo ($fetch['status']==1)?'selected':''; ?>>Online</option>
+					      		<option <?php echo ($fetch['status']==2)?'selected':''; ?>>Suspend</option>
+					      		<option <?php echo ($fetch['status']==3)?'selected':''; ?>>Delete</option>
 					      	</select>
 					      </td>
 					      <td class="align">
-					      	<select name="role">
-					      		<option>Subadmin</option>
-					      		<option>Consumer</option>
-					      		<option>Retailer</option>
-					      		<option>Customer</option>
+					      	<select name="role2">
+					      		<option <?php echo ($fetch['role']==1)?'selected':''; ?>>Admin</option>
+					      		<option <?php echo ($fetch['role']==2)?'selected':''; ?>>Subadmin</option>
+					      		<option <?php echo ($fetch['role']==3)?'selected':''; ?>>Retailer</option>
+					      		<option <?php echo ($fetch['role']==4)?'selected':''; ?>>Customer</option>
 					      	</select>
 					      </td>
 					      <td><div class="modify_button">
-		  			<input type="submit" name="submit" class="button"></input>
+		  			<input type="submit" name="submit2" class="button">
 		  		</div></from></td>
 				        </tr>				        
-					    <form name="select_form" action="admin_dashboard.php" method="post">
+					    <form name="select_form3" action="admin_dashboard.php" method="post">
 				        <tr>
 				        	<?php
 					      		$query = mysqli_query($con, "select * from users where id=".$id++.""); 
+					      		$id = $id +3;
 								$fetch = mysqli_fetch_array($query); ?>
 					      <td><?php echo $fetch['name']; ?></td>
-					      <td><?php echo $fetch['username']; ?></td>
+					      <td><input type="text" name="username3" value="<?php echo $fetch['username']; ?>"></td>
 					      <td><?php echo $fetch['email']; ?></td>
 					      <td><?php echo ( $fetch['gender']== 1 )?'Male':'Female';  ?></td>
 					      <td><?php echo $fetch['DOB']; ?></td>
 					      <td><?php echo $fetch['mobile']; ?></td>
 					      <td class="align">
-					      	<select name="status">
-					      		<option>Suspend</option>
-					      		<option>Delete</option>
+					      	<select name="status3">
+					      		<option <?php echo ($fetch['status']==1)?'selected':''; ?>>Online</option>
+					      		<option <?php echo ($fetch['status']==2)?'selected':''; ?>>Suspend</option>
+					      		<option <?php echo ($fetch['status']==3)?'selected':''; ?>>Delete</option>
 					      	</select>
 					      </td>
 					      <td class="align">
-					      	<select name="role">
-					      		<option>Subadmin</option>
-					      		<option>Consumer</option>
-					      		<option>Retailer</option>
-					      		<option>Customer</option>
+					      	<select name="role3">
+					      		<option <?php echo ($fetch['role']==1)?'selected':''; ?>>Admin</option>
+					      		<option <?php echo ($fetch['role']==2)?'selected':''; ?>>Subadmin</option>
+					      		<option <?php echo ($fetch['role']==3)?'selected':''; ?>>Retailer</option>
+					      		<option <?php echo ($fetch['role']==4)?'selected':''; ?>>Customer</option>
 					      	</select>
 					      </td>
 					      <td><div class="modify_button">
-		  			<input type="submit" name="submit" class="button"></input>
+		  			<input type="submit" name="submit3" class="button">
 		  		</div></from></td>
 				        </tr>
-				        <tr>
-				        	<?php
-					      		$query = mysqli_query($con, "select * from users where id=".$id++.""); 
-								$fetch = mysqli_fetch_array($query); ?>
-					      <td><?php echo $fetch['name']; ?></td>
-					      <td><?php echo $fetch['username']; ?></td>
-					      <td><?php echo $fetch['email']; ?></td>
-					      <td><?php echo ( $fetch['gender']== 1 )?'Male':'Female';  ?></td>
-					      <td><?php echo $fetch['DOB']; ?></td>
-					      <td><?php echo $fetch['mobile']; ?></td>
-					      <td class="align">
-					      	<form name="select_form" action="admin_dashboard.php" method="post">
-					      	<select name="status">
-					      		<option>Suspend</option>
-					      		<option>Delete</option>
-					      	</select>
-					      </td>
-					      <td class="align">
-					      	<select name="role">
-					      		<option>Subadmin</option>
-					      		<option>Consumer</option>
-					      		<option>Retailer</option>
-					      		<option>Customer</option>
-					      	</select>
-					      </td>
-					      <td><div class="modify_button">
-		  			<input type="submit" name="submit" class="button"></input>
-		  		</div></from></td>
-				        </tr>
-					    <tr>
-					    	<?php
-					      		$query = mysqli_query($con, "select * from users where id=".$id++.""); 
-								$fetch = mysqli_fetch_array($query); ?>
-					      <td><?php echo $fetch['name']; ?></td>
-					      <td><?php echo $fetch['username']; ?></td>
-					      <td><?php echo $fetch['email']; ?></td>
-					      <td><?php echo ( $fetch['gender']== 1 )?'Male':'Female';  ?></td>
-					      <td><?php echo $fetch['DOB']; ?></td>
-					      <td><?php echo $fetch['mobile']; ?></td>
-					      <td class="align">
-					      	<form name="select_form" id="select_form" action="admin_dashboard.php" method="post">
-					      	<select name="status">
-					      		<option>Suspend</option>
-					      		<option>Delete</option>
-					      	</select>
-					      </td>
-					      <td class="align">
-					      	<select name="role">
-					      		<option>Subadmin</option>
-					      		<option>Consumer</option>
-					      		<option>Retailer</option>
-					      		<option>Customer</option>
-					      	</select>
-					      </td>
-					      <td><div class="modify_button">
-		  			<input type="submit" name="submit" class="button"></input>
-		  		</div></from></td>	
-				        </tr>
-    				</tbody>
+				    </tbody>
 		  		</table>
 			  </div>
 
@@ -249,22 +200,22 @@
 			  <div class="add_user">
 			  	<h2>Add user</h2>
 			  	<table width="30%" class="add_user_tab">
-			  		<form name="select_form" id="select_form" action="admin_dashboard.php" method="post">
+			  		<form name="select_form" id="select_form4" action="admin_dashboard.php" method="post">
 			  		<tr class="add_user_table">
 			  			<th>Name</th>
 			  			<td><input type="text" name="name" placeholder="Name"></td>
 			  		</tr>
 			  		<tr>
 			  			<th>Username</th>
-			  			<td><input type="text" name="name" placeholder="Username"></td>
+			  			<td><input type="text" name="add_username" placeholder="Username"></td>
 			  		</tr>
 			  		<tr>
 			  			<th>Password</th>
-					    <td><input type="text" name="name" placeholder="password"></td>
+					    <td><input type="text" name="password" placeholder="password"></td>
 					</tr>
 					<tr>
 						<th>Date of birth</th>
-					    <td><input type="date" name="name" placeholder="Date Of Birth"></td>
+					    <td><input type="date" name="DOB" placeholder="Date Of Birth"></td>
 					</tr>
 					<tr>
 						<th>Gender</th>
@@ -272,18 +223,18 @@
 					</tr>
 					<tr>
 						<th>Email</th>
-					    <td><input type="Email" name="name" placeholder="Email"></td>
+					    <td><input type="Email" name="email" placeholder="Email"></td>
 					</tr>
 					<tr>
 						<th>Mobile</th>
-					    <td><input type="Number" name="name" placeholder="Mobile"></td>
+					    <td><input type="Number" name="mobile" placeholder="Mobile"></td>
 					</tr>
 					<tr>
 						<th>Role</th>
 					    <td class="align">
-					    	<select name="role">
+					    	<select name="role4">
+					    		<option>Admin</option>
 					    		<option>Subadmin</option>
-					    		<option>Consumer</option>
 					    		<option>Retailer</option>
 					    		<option>Customer</option>
 					    	</select>
@@ -292,7 +243,8 @@
 					<tr>
 						<th>Status</th>
 					    <td class="align">
-					    	<select name="status">
+					    	<select name="status4">
+					    		<option>Online</option>
 					    		<option>Suspend</option>
 					    		<option>Delete</option>
 					    	</select>
@@ -300,7 +252,7 @@
 					</tr>
 			  	</table>
 			  	<div>
-		  			<input type="submit" name="add_submit" class="button_2" value="Add Users"></input>
+		  			<input type="submit" name="submit5" class="button_2" value="Add Users"></input>
 		  		</div>
 		  	</form>
 		  </div>
@@ -313,13 +265,4 @@
 }else{
 		header('location:products.php');
 	}
-?> 
-<script type="text/javascript">
-	function submit_form(){
-		var a = document.getElementById("select_form");
-		a.submit();
-	}
-	function insertUsers(){
-		$query = "insert into users (name,username,password,email,mobile)";
-	}
-</script>
+?>

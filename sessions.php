@@ -76,10 +76,6 @@ if (isset($_POST["L_submit"]) || isset($_POST["R_submit"])) {
         
 		$gender = ($gender == 'male')?1:0;
 
-		if ($status) {
-			# code...
-		}
-
 
 		$name = stripcslashes($name);
 		$username = stripcslashes($username);
