@@ -66,7 +66,7 @@ if (isset($_POST["L_submit"]) || isset($_POST["R_submit"])) {
 
 		if ($role == "Admin") {
 			$role = 1;
-		}elseif ($role == "Sub-admin") {
+		}elseif ($role == "Subadmin") {
 			$role = 2;
 		}elseif ($role == "Retailer") {
 			$role = 3;
@@ -96,7 +96,7 @@ if (isset($_POST["L_submit"]) || isset($_POST["R_submit"])) {
 		$mobile = mysqli_real_escape_string($con,$mobile);
 
 		$query = "insert into users values
-				 ('$name','$username','$password','$gender','$email','$DOB','$role','$mobile',1)";
+				 ('null','$name','$username','$password','$gender','$email','$DOB','$role','$mobile',1)";
 		$result = mysqli_query($con,$query);
 
 		if ($result) {

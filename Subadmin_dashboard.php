@@ -1,3 +1,13 @@
+<script type="text/javascript" src="js/jquery3.1.js"></script>
+<script type="text/javascript">
+	$('#next').click(function(){
+		$('.dashboard_table').load(' .dashboard_table');
+	});
+	$('#previous').click(function(){
+		var session = <?php echo $_SESSION['id']/3; ?>;
+		$('.dashboard_table').load(' admin_dashboard.php?id=session');
+	});
+</script>
 <?php
 	session_start();
 	include 'connect.php';

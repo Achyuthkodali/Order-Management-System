@@ -56,12 +56,7 @@
 <html>
 <head>
 <script type="text/javascript">
-	function prev(){
-		var session = <?php echo $_SESSION['id']; ?>;
-		session = session -3;
-		alert(session);
-		window.location = "";
-	}
+	
 </script>
 	<title>Admin Dashboard</title>
 	<link rel="stylesheet" type="text/css" href="styles/dashboard_style.css">

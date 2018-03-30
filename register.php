@@ -20,7 +20,7 @@
 		<input type="Email" name="R_email" placeholder="Enter your Email" required>
 		<p>gender <select class="select" name="R_gender" required><option>male</option><option>female</option></select></p><br>
 		<p> </p>
-		<p>Role <select class="select" name="R_role" required><select><option>Distributor</option><option>Retailer</option><option>Customer</option></select></p></br>
+		<p>Role <select class="select" name="R_role" required><option>Retailer</option><option>Customer</option></select></p></br>
 		<p> </p>
 		<p>date of birth</p>
 		<input type="date" name="R_DOB" placeholder="Enter date here"  required>
